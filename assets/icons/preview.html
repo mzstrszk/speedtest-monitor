@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeedTest Monitor - Icon Preview</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 40px;
+        }
+        .icon-showcase {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        .icon-box {
+            text-align: center;
+        }
+        .icon-container {
+            background: #f7fafc;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .icon-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        .icon-container.dark {
+            background: #2d3748;
+        }
+        .icon-label {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+        .features {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        .features h2 {
+            color: #2d3748;
+            margin-top: 0;
+            font-size: 20px;
+        }
+        .features ul {
+            color: #4a5568;
+            line-height: 1.8;
+        }
+        .features li {
+            margin-bottom: 10px;
+        }
+        .features li strong {
+            color: #2d3748;
+        }
+        .next-steps {
+            background: #edf2f7;
+            border-left: 4px solid #667eea;
+            padding: 20px 25px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+        .next-steps h3 {
+            margin-top: 0;
+            color: #2d3748;
+            font-size: 18px;
+        }
+        .next-steps ol {
+            color: #4a5568;
+            line-height: 1.8;
+        }
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 SpeedTest Monitor Icon</h1>
+        <p class="subtitle">高品質アプリケーションアイコン</p>
+
+        <div class="icon-showcase">
+            <div class="icon-box">
+                <div class="icon-container">
+                    <img src="app-icon.svg" width="256" height="256" alt="Light Background">
+                </div>
+                <div class="icon-label">明るい背景</div>
+            </div>
+
+            <div class="icon-box">
+                <div class="icon-container dark">
+                    <img src="app-icon.svg" width="256" height="256" alt="Dark Background">
+                </div>
+                <div class="icon-label">暗い背景</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <span class="badge">512x512 SVG</span>
+            <span class="badge">スケーラブル</span>
+            <span class="badge">ベクター形式</span>
+            <span class="badge">メタリック質感</span>
+        </div>
+
+        <div class="features">
+            <h2>✨ アイコンの特徴</h2>
+            <ul>
+                <li><strong>メタリックな弾丸デザイン:</strong> 精密なグラデーションで金属の質感を表現</li>
+                <li><strong>フレンドリーな表情:</strong> シンプルながら親しみやすい目と笑顔</li>
+                <li><strong>スピード表現:</strong> 動的な速度線でモーション感を演出</li>
+                <li><strong>3D効果:</strong> 複数のハイライトとシャドウで立体感を実現</li>
+                <li><strong>プロフェッショナル品質:</strong> Windows アプリアイコンとして最適化</li>
+                <li><strong>スケーラブル:</strong> SVG形式のため、どんなサイズでもくっきり表示</li>
+            </ul>
+        </div>
+
+        <div class="next-steps">
+            <h3>📋 次のステップ</h3>
+            <ol>
+                <li><strong>SVG から ICO へ変換:</strong> <code>ICON_CONVERSION_GUIDE.md</code> を参照</li>
+                <li><strong>3つの ICO ファイルを作成:</strong>
+                    <ul>
+                        <li>app-icon.ico</li>
+                        <li>installer-icon.ico</li>
+                        <li>uninstaller-icon.ico</li>
+                    </ul>
+                </li>
+                <li><strong>ビルド実行:</strong> <code>npm run build:win</code></li>
+                <li><strong>配布:</strong> 生成された Setup.exe を配布</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

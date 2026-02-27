@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeedTest Monitor - 設定</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/settings.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-12">
+                <!-- ヘッダー -->
+                <header class="settings-header">
+                    <div class="d-flex align-items-center">
+                        <h1 class="h4 mb-0">
+                            <i class="bi bi-gear me-2"></i>
+                            設定
+                        </h1>
+                    </div>
+                </header>
+
+                <!-- メインコンテンツ -->
+                <main class="settings-content">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form id="settingsForm">
+                                <!-- 測定設定セクション -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-speedometer2 me-2"></i>
+                                            測定設定
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="measurementInterval" class="form-label">測定間隔</label>
+                                                <select id="measurementInterval" class="form-select">
+                                                    <option value="5">5分</option>
+                                                    <option value="15">15分</option>
+                                                    <option value="30">30分</option>
+                                                    <option value="60">1時間</option>
+                                                    <option value="120">2時間</option>
+                                                    <option value="240">4時間</option>
+                                                    <option value="480">8時間</option>
+                                                    <option value="720">12時間</option>
+                                                    <option value="1440">24時間</option>
+                                                </select>
+                                                <div class="form-text">速度測定を実行する間隔を選択してください。</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="dataRetentionDays" class="form-label">データ保存期間</label>
+                                                <select id="dataRetentionDays" class="form-select">
+                                                    <option value="7">7日間</option>
+                                                    <option value="14">14日間</option>
+                                                    <option value="30">30日間</option>
+                                                    <option value="60">60日間</option>
+                                                    <option value="90">90日間</option>
+                                                    <option value="180">180日間</option>
+                                                    <option value="365">1年間</option>
+                                                </select>
+                                                <div class="form-text">測定データを保存する期間を選択してください。</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 通知設定セクション -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-bell me-2"></i>
+                                            通知設定
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="notifyOnCompletion">
+                                                <label class="form-check-label" for="notifyOnCompletion">
+                                                    測定完了時に通知を表示
+                                                </label>
+                                                <div class="form-text">速度測定が完了した際に通知を表示します。</div>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="notifyOnError">
+                                                <label class="form-check-label" for="notifyOnError">
+                                                    測定エラー時に通知を表示
+                                                </label>
+                                                <div class="form-text">速度測定でエラーが発生した際に通知を表示します。</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- アプリケーション動作セクション -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-app-indicator me-2"></i>
+                                            アプリケーション動作
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="autoStartMeasurement">
+                                                <label class="form-check-label" for="autoStartMeasurement">
+                                                    アプリケーション開始時に自動測定を開始
+                                                </label>
+                                                <div class="form-text">アプリケーション起動時に自動的に速度測定を開始します。</div>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="showDashboardOnStartup">
+                                                <label class="form-check-label" for="showDashboardOnStartup">
+                                                    起動時にダッシュボードを表示
+                                                </label>
+                                                <div class="form-text">アプリケーション起動時に自動的にダッシュボードが表示されます。チェックを外すとトレイアイコンのみ表示されます。</div>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="minimizeOnClose">
+                                                <label class="form-check-label" for="minimizeOnClose">
+                                                    ウィンドウを閉じた時にトレイに最小化
+                                                </label>
+                                                <div class="form-text">ウィンドウを閉じた時にアプリケーションがバックグラウンドで動作を続けます。</div>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="startWithWindows">
+                                                <label class="form-check-label" for="startWithWindows">
+                                                    Windows起動時に自動開始
+                                                </label>
+                                                <div class="form-text">Windowsの起動時に自動的にアプリケーションが開始されます。</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 静寂時間設定セクション -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-moon me-2"></i>
+                                            静寂時間設定
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" id="enableQuietHours">
+                                                <label class="form-check-label" for="enableQuietHours">
+                                                    静寂時間を有効にする
+                                                </label>
+                                                <div class="form-text">指定した時間帯では自動測定を停止します。</div>
+                                            </div>
+                                            
+                                            <div id="quietHoursSettings" style="display: none;">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="quietHoursStart" class="form-label">開始時刻</label>
+                                                        <input type="time" class="form-control" id="quietHoursStart" value="22:00">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="quietHoursEnd" class="form-label">終了時刻</label>
+                                                        <input type="time" class="form-control" id="quietHoursEnd" value="06:00">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- アドバンス設定セクション -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">
+                                            <i class="bi bi-tools me-2"></i>
+                                            アドバンス設定
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="enableDebugLogging">
+                                                <label class="form-check-label" for="enableDebugLogging">
+                                                    デバッグログを有効にする
+                                                </label>
+                                                <div class="form-text">詳細なログ情報を記録します。問題の診断に役立ちますが、ファイルサイズが大きくなります。</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 保存ボタン -->
+                                <div class="d-flex justify-content-end gap-3">
+                                    <button type="button" class="btn btn-secondary" id="resetBtn">
+                                        <i class="bi bi-arrow-clockwise me-1"></i>
+                                        リセット
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check2 me-1"></i>
+                                        設定を保存
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- サイドバー -->
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        アプリケーション情報
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <dl class="row mb-0">
+                                        <dt class="col-sm-6">バージョン:</dt>
+                                        <dd class="col-sm-6" id="appVersion">1.0.0</dd>
+                                        
+                                        <dt class="col-sm-6">Electron:</dt>
+                                        <dd class="col-sm-6" id="electronVersion">-</dd>
+                                        
+                                        <dt class="col-sm-6">Node.js:</dt>
+                                        <dd class="col-sm-6" id="nodeVersion">-</dd>
+                                    </dl>
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-header">
+                                    <h6 class="mb-0">
+                                        <i class="bi bi-file-text me-2"></i>
+                                        ログとデータ
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-grid gap-2">
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="openLogsBtn">
+                                            <i class="bi bi-folder-open me-1"></i>
+                                            ログフォルダを開く
+                                        </button>
+                                        <button type="button" class="btn btn-outline-success btn-sm" id="exportDataBtn">
+                                            <i class="bi bi-download me-1"></i>
+                                            データをエクスポート
+                                        </button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm" id="cleanupDataBtn">
+                                            <i class="bi bi-trash me-1"></i>
+                                            古いデータを削除
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成功メッセージモーダル -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-check-circle text-success me-2"></i>
+                        成功
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="successMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- エラーメッセージモーダル -->
+    <div class="modal fade" id="errorModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-exclamation-triangle text-danger me-2"></i>
+                        エラー
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 確認モーダル -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalTitle">確認</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmModalMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary" id="confirmModalOkBtn">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeedTest Monitor - セットアップ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/setup.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-12 d-flex flex-column">
+                <!-- ヘッダー -->
+                <header class="text-center py-4 border-bottom">
+                    <h1 class="h3 mb-1">SpeedTest Monitor</h1>
+                    <p class="text-muted mb-0">初期設定</p>
+                </header>
+
+                <!-- メインコンテンツ -->
+                <main class="flex-grow-1 py-4">
+                    <!-- ステップインジケーター -->
+                    <div class="progress-container mb-4">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="step-indicators mt-2">
+                            <span class="step active">基本設定</span>
+                            <span class="step">測定設定</span>
+                            <span class="step">完了</span>
+                        </div>
+                    </div>
+
+                    <!-- ステップ1: 基本設定 -->
+                    <div id="step1" class="step-content active">
+                        <div class="step-header mb-4">
+                            <h2 class="h4">基本設定</h2>
+                            <p class="text-muted">アプリケーションの基本的な設定を行います。</p>
+                        </div>
+
+                        <form id="basicSettingsForm">
+                            <div class="mb-3">
+                                <label for="autoStartMeasurement" class="form-label">
+                                    <input type="checkbox" id="autoStartMeasurement" class="form-check-input me-2" checked>
+                                    アプリケーション開始時に自動測定を開始する
+                                </label>
+                                <div class="form-text">チェックを入れると、アプリケーションが起動時に自動的に速度測定を開始します。</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="showDashboardOnStartup" class="form-label">
+                                    <input type="checkbox" id="showDashboardOnStartup" class="form-check-input me-2">
+                                    起動時にダッシュボードを表示
+                                </label>
+                                <div class="form-text">チェックを入れると、アプリケーション起動時に自動的にダッシュボードが表示されます。チェックを外すとトレイアイコンのみ表示されます。</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="minimizeOnClose" class="form-label">
+                                    <input type="checkbox" id="minimizeOnClose" class="form-check-input me-2" checked>
+                                    ウィンドウを閉じた時にタスクトレイに最小化
+                                </label>
+                                <div class="form-text">チェックを入れると、ウィンドウを閉じた時にアプリケーションがバックグラウンドで動作を続けます。</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="startWithWindows" class="form-label">
+                                    <input type="checkbox" id="startWithWindows" class="form-check-input me-2">
+                                    Windows起動時に自動開始
+                                </label>
+                                <div class="form-text">チェックを入れると、Windowsの起動時に自動的にアプリケーションが開始されます。</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="notifyOnCompletion" class="form-label">
+                                    <input type="checkbox" id="notifyOnCompletion" class="form-check-input me-2" checked>
+                                    測定完了時に通知を表示
+                                </label>
+                                <div class="form-text">チェックを入れると、速度測定が完了した際に通知が表示されます。</div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ステップ2: 測定設定 -->
+                    <div id="step2" class="step-content">
+                        <div class="step-header mb-4">
+                            <h2 class="h4">測定設定</h2>
+                            <p class="text-muted">速度測定の間隔やデータ保存期間を設定します。</p>
+                        </div>
+
+                        <form id="measurementSettingsForm">
+                            <div class="mb-3">
+                                <label for="measurementInterval" class="form-label">測定間隔</label>
+                                <select id="measurementInterval" class="form-select">
+                                    <option value="5">5分</option>
+                                    <option value="15">15分</option>
+                                    <option value="30">30分</option>
+                                    <option value="60" selected>1時間</option>
+                                    <option value="120">2時間</option>
+                                    <option value="240">4時間</option>
+                                    <option value="480">8時間</option>
+                                    <option value="720">12時間</option>
+                                    <option value="1440">24時間</option>
+                                </select>
+                                <div class="form-text">速度測定を実行する間隔を選択してください。短い間隔ほど詳細なデータが取得できますが、ネットワーク使用量が増加します。</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="dataRetentionDays" class="form-label">データ保存期間</label>
+                                <select id="dataRetentionDays" class="form-select">
+                                    <option value="7">7日間</option>
+                                    <option value="14">14日間</option>
+                                    <option value="30" selected>30日間</option>
+                                    <option value="60">60日間</option>
+                                    <option value="90">90日間</option>
+                                    <option value="180">180日間</option>
+                                    <option value="365">1年間</option>
+                                </select>
+                                <div class="form-text">測定データを保存する期間を選択してください。古いデータは自動的に削除されます。</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="notifyOnError" class="form-label">
+                                    <input type="checkbox" id="notifyOnError" class="form-check-input me-2" checked>
+                                    測定エラー時に通知を表示
+                                </label>
+                                <div class="form-text">チェックを入れると、速度測定でエラーが発生した際に通知が表示されます。</div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ステップ3: 完了 -->
+                    <div id="step3" class="step-content">
+                        <div class="step-header mb-4 text-center">
+                            <div class="success-icon mb-3">
+                                <svg width="64" height="64" fill="currentColor" class="text-success" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.061L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                </svg>
+                            </div>
+                            <h2 class="h4 text-success">セットアップ完了</h2>
+                            <p class="text-muted">SpeedTest Monitorの初期設定が完了しました。</p>
+                        </div>
+
+                        <div class="settings-summary">
+                            <h5>設定内容の確認</h5>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row" id="settingsSummary">
+                                        <!-- 設定内容がJavaScriptで動的に挿入されます -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-center">
+                            <p class="text-muted">設定はダッシュボードからいつでも変更できます。</p>
+                        </div>
+                    </div>
+                </main>
+
+                <!-- フッター -->
+                <footer class="py-3 border-top">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button id="backBtn" class="btn btn-secondary" disabled>戻る</button>
+                        
+                        <div class="text-center">
+                            <span id="stepCounter" class="text-muted">1 / 3</span>
+                        </div>
+                        
+                        <div>
+                            <button id="nextBtn" class="btn btn-primary">次へ</button>
+                            <button id="completeBtn" class="btn btn-success" style="display: none;">完了</button>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- エラーモーダル -->
+    <div class="modal fade" id="errorModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">エラー</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ローディングモーダル -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="spinner-border text-primary mb-3" role="status">
+                        <span class="visually-hidden">読み込み中...</span>
+                    </div>
+                    <p class="mb-0">設定を保存しています...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/setup.js"></script>
+</body>
+</html>

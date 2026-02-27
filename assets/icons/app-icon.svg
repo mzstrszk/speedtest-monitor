@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Enhanced metallic gradient with more depth -->
+    <radialGradient id="metalGradient" cx="38%" cy="32%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="15%" style="stop-color:#e8f0f8;stop-opacity:1" />
+      <stop offset="35%" style="stop-color:#c0d0e0;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#8898a8;stop-opacity:1" />
+      <stop offset="85%" style="stop-color:#606870;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#484f56;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Inner shadow for depth -->
+    <radialGradient id="innerShadow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#808890;stop-opacity:0" />
+      <stop offset="85%" style="stop-color:#404448;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#202428;stop-opacity:0.5" />
+    </radialGradient>
+
+    <!-- Specular highlight -->
+    <radialGradient id="specularGradient" cx="35%" cy="35%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f8fcff;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#e0e8f0;stop-opacity:0" />
+    </radialGradient>
+
+    <!-- Bullet tip gradient -->
+    <linearGradient id="tipGradient" x1="0%" y1="30%" x2="100%" y2="50%">
+      <stop offset="0%" style="stop-color:#909ca8;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#c0d0e0;stop-opacity:1" />
+      <stop offset="80%" style="stop-color:#e8f4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5f8fc;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Shadow -->
+    <radialGradient id="shadowGradient" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.25" />
+      <stop offset="70%" style="stop-color:#000000;stop-opacity:0.08" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0" />
+    </radialGradient>
+
+    <!-- Speed line gradient -->
+    <linearGradient id="speedLineGradient" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#5cb8ff;stop-opacity:0.9" />
+      <stop offset="70%" style="stop-color:#5cb8ff;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#5cb8ff;stop-opacity:0" />
+    </linearGradient>
+
+    <!-- Filter for soft glow on speed lines -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Soft shadow beneath bullet -->
+  <ellipse cx="295" cy="305" rx="175" ry="22" fill="url(#shadowGradient)" />
+
+  <!-- Speed lines with glow effect -->
+  <g opacity="0.9" filter="url(#glow)">
+    <rect x="45" y="204" width="85" height="8" rx="4" fill="url(#speedLineGradient)" />
+    <rect x="25" y="228" width="105" height="9" rx="4.5" fill="url(#speedLineGradient)" />
+    <rect x="35" y="254" width="95" height="8" rx="4" fill="url(#speedLineGradient)" />
+    <rect x="15" y="278" width="115" height="10" rx="5" fill="url(#speedLineGradient)" />
+    <rect x="40" y="302" width="90" height="8" rx="4" fill="url(#speedLineGradient)" />
+  </g>
+
+  <!-- Main bullet body -->
+  <ellipse cx="265" cy="256" rx="145" ry="72" fill="url(#metalGradient)" />
+
+  <!-- Inner shadow layer for depth -->
+  <ellipse cx="265" cy="256" rx="143" ry="70" fill="url(#innerShadow)" />
+
+  <!-- Bullet body rim detail (base/casing) -->
+  <ellipse cx="130" cy="256" rx="14" ry="70" fill="#404850" />
+  <ellipse cx="134" cy="256" rx="10" ry="68" fill="#707c88" opacity="0.6" />
+  <ellipse cx="136" cy="256" rx="6" ry="66" fill="#a0acb8" opacity="0.4" />
+
+  <!-- Primary specular highlight -->
+  <ellipse cx="240" cy="215" rx="90" ry="40" fill="url(#specularGradient)" />
+
+  <!-- Secondary highlight for extra realism -->
+  <ellipse cx="210" cy="205" rx="35" ry="18" fill="#ffffff" opacity="0.5" />
+
+  <!-- Bullet tip (cone) - bottom face -->
+  <path d="M 400 256 L 475 256 L 400 320 Z" fill="#606c78" />
+
+  <!-- Bullet tip - top face (lighter) -->
+  <path d="M 400 256 L 475 256 L 400 192 Z" fill="#a8b8c8" />
+
+  <!-- Tip top surface with gradient -->
+  <path d="M 400 192 L 475 256 L 425 230 Z" fill="url(#tipGradient)" />
+
+  <!-- Tip specular highlight -->
+  <path d="M 408 228 L 460 256 L 420 242 Z" fill="#f8fcff" opacity="0.8" />
+  <path d="M 415 236 L 445 252 L 425 244 Z" fill="#ffffff" opacity="0.6" />
+
+  <!-- Face elements -->
+  <g id="face">
+    <!-- Left eye socket (subtle depression) -->
+    <ellipse cx="245" cy="241" rx="14" ry="14" fill="#404850" opacity="0.15" />
+    
+    <!-- Left eye -->
+    <circle cx="245" cy="240" r="13" fill="#1a2028" />
+    <circle cx="245" cy="240" r="12" fill="#2a3240" />
+    
+    <!-- Left eye shine -->
+    <ellipse cx="248" cy="236" rx="5" ry="6" fill="#ffffff" opacity="0.95" />
+    <ellipse cx="250" cy="238" rx="2" ry="3" fill="#ffffff" opacity="0.7" />
+
+    <!-- Right eye socket -->
+    <ellipse cx="295" cy="241" rx="14" ry="14" fill="#404850" opacity="0.15" />
+    
+    <!-- Right eye -->
+    <circle cx="295" cy="240" r="13" fill="#1a2028" />
+    <circle cx="295" cy="240" r="12" fill="#2a3240" />
+    
+    <!-- Right eye shine -->
+    <ellipse cx="298" cy="236" rx="5" ry="6" fill="#ffffff" opacity="0.95" />
+    <ellipse cx="300" cy="238" rx="2" ry="3" fill="#ffffff" opacity="0.7" />
+
+    <!-- Smile with subtle shadow -->
+    <path d="M 248 272 Q 270 290 292 272"
+          stroke="#101418"
+          stroke-width="2"
+          stroke-linecap="round"
+          fill="none"
+          opacity="0.3" />
+    
+    <!-- Main smile -->
+    <path d="M 248 270 Q 270 288 292 270"
+          stroke="#1a2028"
+          stroke-width="6"
+          stroke-linecap="round"
+          fill="none" />
+
+    <!-- Smile highlight -->
+    <path d="M 250 270 Q 270 286 290 270"
+          stroke="#2a3240"
+          stroke-width="4"
+          stroke-linecap="round"
+          fill="none" />
+  </g>
+
+  <!-- Tertiary highlight for maximum polish -->
+  <ellipse cx="215" cy="208" rx="25" ry="12" fill="#ffffff" opacity="0.25" />
+
+  <!-- Edge definition -->
+  <ellipse cx="265" cy="256" rx="144" ry="71" fill="none" stroke="#404850" stroke-width="0.5" opacity="0.3" />
+</svg>

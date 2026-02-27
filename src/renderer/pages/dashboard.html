@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeedTest Monitor - ダッシュボード</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <!-- サイドバー -->
+            <div class="col-md-3 col-lg-2 sidebar">
+                <div class="sidebar-header">
+                    <h5 class="mb-0">SpeedTest Monitor</h5>
+                    <small class="text-muted">v<span id="app-version">1.0.0</span></small>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-section="overview">
+                                <i class="bi bi-speedometer2"></i>
+                                概要
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="history">
+                                <i class="bi bi-clock-history"></i>
+                                履歴
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="statistics">
+                                <i class="bi bi-graph-up"></i>
+                                統計
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="settings">
+                                <i class="bi bi-gear"></i>
+                                設定
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <div class="status-indicator">
+                        <span class="status-dot" id="connectionStatus"></span>
+                        <span class="status-text" id="statusText">接続中...</span>
+                    </div>
+                    <button class="btn btn-outline-secondary btn-sm" id="minimizeBtn">
+                        <i class="bi bi-dash-square"></i>
+                        最小化
+                    </button>
+                </div>
+            </div>
+
+            <!-- メインコンテンツ -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <!-- ヘッダー -->
+                <header class="content-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1 id="sectionTitle">概要</h1>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" id="runTestBtn">
+                                <i class="bi bi-play-circle"></i>
+                                測定実行
+                            </button>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" id="exportDataBtn">
+                                        <i class="bi bi-download"></i> データエクスポート
+                                    </a></li>
+                                    <li><a class="dropdown-item" href="#" id="openLogsBtn">
+                                        <i class="bi bi-file-text"></i> ログを開く
+                                    </a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#" id="quitAppBtn">
+                                        <i class="bi bi-x-circle"></i> アプリケーション終了
+                                    </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- コンテンツエリア -->
+                <div class="content-body">
+                    <!-- 概要セクション -->
+                    <section id="overviewSection" class="content-section active">
+                        <!-- 現在の測定状態 -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card measurement-status-card">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-8">
+                                                <h5 class="card-title">測定状態</h5>
+                                                <div class="measurement-info">
+                                                    <div class="scheduler-status">
+                                                        <span class="status-badge" id="schedulerStatusBadge">停止中</span>
+                                                        <span id="schedulerStatusText">自動測定は停止しています</span>
+                                                    </div>
+                                                    <div class="next-run-info mt-2" id="nextRunInfo" style="display: none;">
+                                                        <small class="text-muted">
+                                                            次回測定: <span id="nextRunTime">--</span>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 text-end">
+                                                <button class="btn btn-success" id="startSchedulerBtn">
+                                                    <i class="bi bi-play"></i>
+                                                    自動測定開始
+                                                </button>
+                                                <button class="btn btn-danger" id="stopSchedulerBtn" style="display: none;">
+                                                    <i class="bi bi-stop"></i>
+                                                    自動測定停止
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 最新の測定結果 -->
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="card metric-card">
+                                    <div class="card-body">
+                                        <div class="metric-icon">
+                                            <i class="bi bi-arrow-down-circle text-primary"></i>
+                                        </div>
+                                        <h6 class="card-subtitle mb-2">ダウンロード速度</h6>
+                                        <h3 class="card-title mb-0" id="downloadSpeed">--</h3>
+                                        <small class="text-muted" id="downloadSpeedTime">測定データなし</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card metric-card">
+                                    <div class="card-body">
+                                        <div class="metric-icon">
+                                            <i class="bi bi-arrow-up-circle text-success"></i>
+                                        </div>
+                                        <h6 class="card-subtitle mb-2">アップロード速度</h6>
+                                        <h3 class="card-title mb-0" id="uploadSpeed">--</h3>
+                                        <small class="text-muted" id="uploadSpeedTime">測定データなし</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card metric-card">
+                                    <div class="card-body">
+                                        <div class="metric-icon">
+                                            <i class="bi bi-stopwatch text-warning"></i>
+                                        </div>
+                                        <h6 class="card-subtitle mb-2">レイテンシ (ping)</h6>
+                                        <h3 class="card-title mb-0" id="pingTime">--</h3>
+                                        <small class="text-muted" id="pingTimeTime">測定データなし</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 速度推移チャート -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">速度推移 (過去24時間)</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="speedChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 最近の測定結果テーブル -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">最近の測定結果</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped" id="recentTestsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>測定時刻</th>
+                                                        <th>ダウンロード</th>
+                                                        <th>アップロード</th>
+                                                        <th>Ping</th>
+                                                        <th>サーバー</th>
+                                                        <th>状態</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="6" class="text-center text-muted">
+                                                            測定データを読み込み中...
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 履歴セクション -->
+                    <section id="historySection" class="content-section">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="startDate">
+                                    <span class="input-group-text">〜</span>
+                                    <input type="date" class="form-control" id="endDate">
+                                    <button class="btn btn-outline-secondary" id="filterBtn">
+                                        <i class="bi bi-funnel"></i>
+                                        フィルター
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button class="btn btn-outline-primary" id="refreshHistoryBtn">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                    更新
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped" id="historyTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>測定時刻</th>
+                                                        <th>ダウンロード</th>
+                                                        <th>アップロード</th>
+                                                        <th>Ping</th>
+                                                        <th>Jitter</th>
+                                                        <th>サーバー</th>
+                                                        <th>状態</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="7" class="text-center text-muted">
+                                                            データを読み込み中...
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <nav>
+                                            <ul class="pagination justify-content-center" id="historyPagination">
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 統計セクション -->
+                    <section id="statisticsSection" class="content-section">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <select class="form-select" id="statsPeriod">
+                                    <option value="24h" selected>過去24時間</option>
+                                    <option value="7d">過去7日間</option>
+                                    <option value="30d">過去30日間</option>
+                                    <option value="90d">過去90日間</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4" id="statsCards">
+                            <!-- 統計カードがJavaScriptで動的に生成されます -->
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">詳細統計チャート</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="statsChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 設定セクション -->
+                    <section id="settingsSection" class="content-section">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">アプリケーション設定</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <form id="settingsForm">
+                                            <!-- 測定設定 -->
+                                            <h6 class="mb-3">測定設定</h6>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="measurementIntervalSetting" class="form-label">測定間隔</label>
+                                                    <select id="measurementIntervalSetting" class="form-select">
+                                                        <option value="5">5分</option>
+                                                        <option value="15">15分</option>
+                                                        <option value="30">30分</option>
+                                                        <option value="60">1時間</option>
+                                                        <option value="120">2時間</option>
+                                                        <option value="240">4時間</option>
+                                                        <option value="480">8時間</option>
+                                                        <option value="720">12時間</option>
+                                                        <option value="1440">24時間</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="dataRetentionDaysSetting" class="form-label">データ保存期間</label>
+                                                    <select id="dataRetentionDaysSetting" class="form-select">
+                                                        <option value="7">7日間</option>
+                                                        <option value="14">14日間</option>
+                                                        <option value="30">30日間</option>
+                                                        <option value="60">60日間</option>
+                                                        <option value="90">90日間</option>
+                                                        <option value="180">180日間</option>
+                                                        <option value="365">1年間</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- 通知設定 -->
+                                            <h6 class="mb-3">通知設定</h6>
+                                            <div class="mb-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="notifyOnCompletionSetting">
+                                                    <label class="form-check-label" for="notifyOnCompletionSetting">
+                                                        測定完了時に通知を表示
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="notifyOnErrorSetting">
+                                                    <label class="form-check-label" for="notifyOnErrorSetting">
+                                                        測定エラー時に通知を表示
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <!-- アプリケーション動作 -->
+                                            <h6 class="mb-3">アプリケーション動作</h6>
+                                            <div class="mb-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="minimizeOnCloseSetting">
+                                                    <label class="form-check-label" for="minimizeOnCloseSetting">
+                                                        ウィンドウを閉じた時にトレイに最小化
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="startWithWindowsSetting">
+                                                    <label class="form-check-label" for="startWithWindowsSetting">
+                                                        Windows起動時に自動開始
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="enableDebugLoggingSetting">
+                                                    <label class="form-check-label" for="enableDebugLoggingSetting">
+                                                        デバッグログを有効にする
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-end">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="bi bi-check2"></i>
+                                                    設定を保存
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 測定進行状況モーダル -->
+    <div class="modal fade" id="testProgressModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-speedometer2"></i>
+                        速度測定中
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">測定中...</span>
+                        </div>
+                    </div>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <p class="text-center mb-0" id="testProgressText">測定を開始しています...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelTestBtn">
+                        <i class="bi bi-x-circle"></i>
+                        キャンセル
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 確認モーダル -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalTitle">確認</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmModalMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary" id="confirmModalOkBtn">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
