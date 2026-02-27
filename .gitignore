@@ -41,10 +41,20 @@ coverage/
 
 # Environment variables
 .env
+.env.*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Security and credentials
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+credentials.json
+auth.json
 
 # Temporary directories
 tmp/
@@ -55,6 +65,10 @@ userData/
 speedtest-monitor.db
 speedtest-monitor-config.json
 electron-log.log
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-journal
 
 # Build configuration
 electron-builder-config.json
@@ -108,3 +122,19 @@ package-lock.json
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Personal notes and local configs
+TODO.md
+NOTES.md
+.local/
